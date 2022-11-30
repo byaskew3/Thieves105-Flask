@@ -14,6 +14,3 @@ def home():
     }]
     return render_template('index.html', names=instructors)
 
-@app.route('/login')
-def login():
-    return render_template('login.html')

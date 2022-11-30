@@ -1,65 +1,38 @@
-1. Flask is a full-stack micro framework,
--- combining Frontend(HTML,CSS,JS), Backend(Python,JS,Java, etc.), Database (SQL)
+1. Flask Forms (WTForms)
+-- Used to accept user information from the frontend, pass it to our backend, and store it in Database.
 
-2. MVC (Model View Controller)
--- Model (Database), View (Frontend), Controller (Backend)
+2. Flask Models (SQLAlchemy)
 
-3. Virtual Environment
--- A tool that helps to keep dependencies required by different projects separate by 
--- creating isolated python virtual environments for them.
--Mac: 
-		-create: python3 -m venv my_venv
-		-activate: source my_venv/bin/activate
+3. We're primarily going to be working with only the auth section today.
 
--Windows:
-		-create: python -m venv my_venv
-		-activate: my_venv\Scripts\activate
+(Forms Section)
+-- add login route to auth blueprint (remember to remove it from main routes)
+-- polish/finish signup.html
+-- pip install flask-wtf (remember to pip freeze when you add new pip installs to venv)
+-- create forms.py in auth, create UserCreationForm
+-- on auth.routes import the form on the signup route
+-- Add SECRET_KEY to .env for security (rememeber to update your config file)
+-- Add form inputs on signup.html (also, add form.hidden_tag() at the top of form)
+-- GET/POST requests
+-- import request on auth.routes
 
-4. useful pip commands
--- pip install
--- pip uninstall
--- pip list
--- pip freeze
--- NOTE: use pip3 for MAC
+(Models Section)
+-- create models.py on root level of app
+-- pip install flask-sqlalchemy
+-- Create User & Post Models
+-- On auth.routes instantiate/add the User
 
-5. Requirements.txt
--- pip freeze > requirements.txt
--- Just a text file that includes all of the packages needed for the specific project
+(Database Section)
+-- create new instance on ElephantSQL
+-- add DATABASE_URL to .env (rememeber to add 'ql' after 'postgres')
+-- update config file. (The Variable name must be 'SQLALCHEMY_DATABASE_URI' when using SQLAlchemy)
+-- pip install flask-migrate, psycopg2 (MAC:psycopg2-binary)
+-- add migrate,db imports to __init__.py
+-- initialize our database to work with ElephantSQL
+-- import models
+-- migrate models to database
+(Terminal Commands to migrate) 
+(flask db init,flask db migrate,flask db upgrade)
 
-6. Basic Flask Structure
--- create run.py
--- import Flask
--- create routes
-
-7. Better Flask Structure
--- Utilizing seperation of concerns
--- create app folder
--- create __init__.py (flask import)
--- routes.py (remember to import routes into __init__.py)
-
-__name__ == '__main__' explanation:
--- It's boilerplate code that protects users from accidentally invoking 
--- the script when they didn't intend to
-
-8. Create templates folder & import render_template
--- flask render_template looks for a folder named "templates" in order to render html documents.
-
-9. Create config.py & .env file 
--- It allows us to set different flask variables
--- Better option than just using terminal bc you would have to re-set variables everytime
--- Remember to pip install python-dotenv to utilize .env file
-NOTE: Anytime you do a new "pip install" make sure to update your requirements.txt
-(pip freeze > requirements.txt)
-
-10. Jinja2
--- templating language for python
--- for loops, if-else statements
--- routing to different pages
--- template inheritance (extends, include)
-
-11. Blueprints
--- Help structure your application by organizing the logic into subdirectories
-
-12. .gitignore
--- Ignores files/folders to push up to github
-(.env, my_venv, __pycache__)
+4. Redirect from signup to login
+-- import redirect, url_for on auth.routes
