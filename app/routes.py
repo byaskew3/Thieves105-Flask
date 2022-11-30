@@ -13,4 +13,3 @@ def home():
         'age': 'infinity'
     }]
     return render_template('index.html', names=instructors)
-
