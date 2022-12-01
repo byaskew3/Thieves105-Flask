@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+{% block content %}
+{% for post in posts %}
+<a class="card mx-auto m-5 text-decoration-none" style="width: 30rem;" href="/posts/{{post.id}}">
+    <img class="card-img-top" src="{{post.img_url}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title text-dark">{{post.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{post.author.username}}</h6>
+      <p class="card-text caption-text">{{post.caption}}</p>
+    </div>
+</a>
+{% endfor %}
+{% endblock %}

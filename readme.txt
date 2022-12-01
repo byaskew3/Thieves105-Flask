@@ -1,39 +1,30 @@
-1. Flask Forms (WTForms)
--- Used to accept user information from the frontend, pass it to our backend, and store it in Database.
+1. Make small tweaks to feed page.
+(Display most recent posts first, increase card & caption sizes)
 
-2. Flask Models (SQLAlchemy)
---
+2. Dynamic Routes for each post in the feed
+-- Create a Dynamic Route on ig.routes
+-- Create single_post.html on ig.templates
+(Identical to the feed.html just without the for loop)
+-- Create if conditional for invalid post_id route
+-- Make feed cards clickable to route to the specific post
 
-3. We're primarily going to be working with only the auth section today.
+3. Add Update and Delete buttons to specific post
+(Update Functionality)
+-- Create update_post dynamic route on ig.route
+(Identical to create_post route)
+-- Create update_post.html
+(Identical to create_post.html)
 
-(Forms Section)
--- add login route to auth blueprint (remember to remove it from main routes)
--- polish/finish signup.html
--- pip install flask-wtf (remember to pip freeze when you add new pip installs to venv)
--- create forms.py in auth, create UserCreationForm
--- on auth.routes import the form on the signup route
--- Add SECRET_KEY to .env for security (rememeber to update your config file)
--- Add form inputs on signup.html (also, add form.hidden_tag() at the top of form)
--- GET/POST requests
--- import request on auth.routes
+(Delete Functionality)
+-- Implement Bootstrap Modal on single_post
+(Replace Delete Button)
+-- Create delete_post dynamic route on ig.route
+-- Create delete_from_db method
 
-(Models Section)
--- create models.py on root level of app
--- pip install flask-sqlalchemy
--- Create User & Post Models
--- On auth.routes instantiate/add the User
+4. Protect single post from unauthorized users & backdoor security
+(if current_user.id == post.user_id)
 
-(Database Section)
--- create new instance on ElephantSQL
--- add DATABASE_URL to .env (rememeber to add 'ql' after 'postgres')
--- update config file. (The Variable name must be 'SQLALCHEMY_DATABASE_URI' when using SQLAlchemy)
--- pip install flask-migrate, psycopg2 (MAC:psycopg2-binary)
--- add migrate,db imports to __init__.py
--- initialize our database to work with our Database
--- import models
--- migrate models to database
-(Terminal Commands to migrate) 
-(flask db init,flask db migrate,flask db upgrade)
+5. Flash Messages
+-- Update all print statements to be flash messages
 
-4. Redirect from signup to login
--- import redirect, url_for on auth.routes
+6. Many to Many Relationships with Pokemon Assignment
