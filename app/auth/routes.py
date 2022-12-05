@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from app.auth.forms import LoginForm, UserCreationForm
 from werkzeug.security import check_password_hash
@@ -40,7 +40,7 @@ def login():
             user = User.query.filter_by(username=username).first()
             if user:
                 if check_password_hash(user.password, password):
-                    print('Successfully logged in!')
+                    flash('Successfully logged in!', 'success')
                     login_user(user)
                     return redirect(url_for('home'))
                 else:

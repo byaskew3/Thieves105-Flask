@@ -5,6 +5,19 @@ from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
+# Can do it this way, but not recommended
+# class Followers(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     follower_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+#     followed_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+# Preferred way
+followers = db.Table(
+    'followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id'), nullable=False),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'), nullable=False)
+)
+
 # create Models based off our ERD
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,6 +25,13 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(250), nullable=False, unique=True)
     password = db.Column(db.String(250), nullable=False)
     post = db.relationship('Post', backref='Author', lazy=True)
+    followed = db.relationship('User', 
+        primaryjoin = (followers.columns.follower_id==id),
+        secondaryjoin = (followers.columns.followed_id==id),
+        secondary = followers,
+        backref = db.backref('followers', lazy='dynamic'),
+        lazy = 'dynamic'
+    )
 
     def __init__(self, username, email, password):
         self.username = username
@@ -20,6 +40,14 @@ class User(db.Model, UserMixin):
 
     def save_to_db(self):
         db.session.add(self)
+        db.session.commit()
+    
+    def follow(self, user):
+        self.followed.append(user)
+        db.session.commit()
+    
+    def unfollow(self, user):
+        self.followed.remove(user)
         db.session.commit()
 
 class Post(db.Model):
@@ -39,4 +67,13 @@ class Post(db.Model):
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
-        
+    
+    def update_db(self):
+        db.session.commit()
+    
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+    
