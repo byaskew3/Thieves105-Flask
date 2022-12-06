@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from .forms import PostForm
-from app.models import Post
+from app.models import Post, User
 
 ig = Blueprint('ig', __name__, template_folder='ig_templates')
 
@@ -74,3 +74,26 @@ def delete_post(post_id):
     else:
         print('You do not have permission to be here!')
     return redirect(url_for('ig.view_posts'))
+
+@ig.route('/follow/<int:user_id>')
+@login_required
+def follow(user_id):
+    user = User.query.get(user_id)
+    if user:
+        current_user.follow(user)
+        flash(f'Successfully followed {user.username}!', 'success')
+    else:
+        flash('User does not exist!', 'danger')
+    
+    return redirect(url_for('home'))
+
+@ig.route('/unfollow/<int:user_id>')
+@login_required
+def unfollow(user_id):
+    user = User.query.get(user_id)
+    if user:
+        current_user.unfollow(user)
+        flash(f'Successfully unfollowed {user.username}', 'primary')
+    else:
+        flash('Cannot unfollow a user that you\'re not following.', 'danger')
+    return redirect(url_for('home'))

@@ -1,7 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-      {% for name in names %}
-      <p>{{name.age}}</p>
+      {% for user in users %}
+      {% if current_user.username != user.username %}
+      <section class="vh-10" style="background-color: rgb(212, 73, 101);">
+            <div class="container py-2 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-md-9 col-lg-7 col-xl-5">
+                  <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-4">
+                      <div class="d-flex text-black">
+                        <div class="flex-shrink-0">
+                          <img src="{{ url_for('static', filename='images/thievesbg.png')}}"
+                            alt="Generic placeholder image" class="img-fluid"
+                            style="width: 180px; height: 160px; border-radius: 10px; object-fit: cover;">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                          <h5 class="mb-1">{{user.username}}</h5>
+                          <p class="mb-2 pb-1" style="color: #2b2a2a;">Thieves Programmer</p>
+                          <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                            style="background-color: #efefef;">
+                          </div>
+                          {% if user.isFollowing %}
+                          <div class="d-flex pt-1">
+                              <a class="btn btn-danger flex-grow-1" href="/unfollow/{{user.id}}">Unfollow</a>
+                          </div>
+                          {% else %}
+                          <div class="d-flex pt-1">
+                            <a class="btn btn-primary flex-grow-1" href="/follow/{{user.id}}">Follow</a>
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {% endif %}
       {% endfor%}
-      <a href="/login">Login</a>
 {% endblock %}

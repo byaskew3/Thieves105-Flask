@@ -1,30 +1,24 @@
-1. Make small tweaks to feed page.
-(Display most recent posts first, increase card & caption sizes)
+1. Creating our API with Flask
+-- create new api Blueprint
+(this will look very similar to ig.routes)
+-- use url_prefix instead of template_folder
+(because we just need to access the backend data)
+-- JSON
+(Javascript Object Notation)
+-- Standardized way of passing data across the web
+-- Create a .to_dict() method on Post to convert post objects to JSON format
+-- test api route
 
-2. Dynamic Routes for each post in the feed
--- Create a Dynamic Route on ig.routes
--- Create single_post.html on ig.templates
-(Identical to the feed.html just without the for loop)
--- Create if conditional for invalid post_id route
--- Make feed cards clickable to route to the specific post
+2. Create single_post_api dynamic route
 
-3. Add Update and Delete buttons to specific post
-(Update Functionality)
--- Create update_post dynamic route on ig.route
-(Identical to create_post route)
--- Create update_post.html
-(Identical to create_post.html)
+3. Create create_post_api route
+-- Use Postman Application to post data to api without a frontend
+(Remember to add Header: Content-Type: 'application/json')
+(On body tab, select the raw, dropdown should be JSON)
+-- Test post request
 
-(Delete Functionality)
--- Implement Bootstrap Modal on single_post
-(Replace Delete Button)
--- Create delete_post dynamic route on ig.route
--- Create delete_from_db method
-
-4. Protect single post from unauthorized users & backdoor security
-(if current_user.id == post.user_id)
-
-5. Flash Messages
--- Update all print statements to be flash messages
-
-6. Many to Many Relationships with Pokemon Assignment
+4. Additonal CRUD methods for api
+(Create = POST)
+(Read/Retrieve = GET)
+(Update = PUT/POST)
+(Delete = DELETE)
