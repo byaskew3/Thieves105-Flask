@@ -7,6 +7,7 @@ from .ig.routes import ig
 from .api.routes import api
 from flask_login import LoginManager
 from flask_moment import Moment
+
 app = Flask(__name__)
 
 app.config.from_object(Config)
@@ -20,7 +21,6 @@ def load_user(user_id):
 app.register_blueprint(auth)
 app.register_blueprint(ig)
 app.register_blueprint(api)
-
 
 #initialize our database to work with our app
 db.init_app(app)
